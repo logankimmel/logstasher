@@ -39,10 +39,10 @@ describe LogStasher::RequestLogSubscriber do
     let(:payload) { {} }
     let(:event)   { double(:payload => payload) }
     let(:logger)  { double }
-    let(:json)    { "{\"@source\":\"unknown\",\"@tags\":[\"request\"],\"@fields\":{\"request\":true,\"status\":true,\"runtimes\":true,\"location\":true,\"exception\":true,\"custom\":true},\"@eventtime\":\"eventtimep\"}\n" }
+    let(:json)    { "{\"@source\":\"unknown\",\"@tags\":[\"request\"],\"@fields\":{\"request\":true,\"status\":true,\"runtimes\":true,\"location\":true,\"exception\":true,\"custom\":true},\"@timestamp\":\"timestamp\"}\n" }
     before do
       LogStasher.stub(:logger => logger)
-      LogStash::Time.stub(:now => 'eventtime')
+      LogStash::Time.stub(:now => 'timestamp')
     end
     it 'calls all extractors and outputs the json' do
       request_subscriber.should_receive(:extract_request).with(payload).and_return({:request => true})

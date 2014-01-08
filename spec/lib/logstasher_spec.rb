@@ -123,11 +123,11 @@ describe LogStasher do
     let(:logger) { double() }
     before do
       LogStasher.logger = logger
-      LogStash::Time.stub(:now => 'eventtime')
+      LogStash::Time.stub(:now => 'timestamp')
     end
     it 'adds to log with specified level' do
       logger.should_receive(:send).with('warn?').and_return(true)
-      logger.should_receive(:send).with('warn',"{\"@source\":\"unknown\",\"@tags\":[\"log\"],\"@fields\":{\"message\":\"WARNING\",\"level\":\"warn\"},\"@eventtime\":\"eventtime\"}")
+      logger.should_receive(:send).with('warn',"{\"@source\":\"unknown\",\"@tags\":[\"log\"],\"@fields\":{\"message\":\"WARNING\",\"level\":\"warn\"},\"@timestamp\":\"timestamp\"}")
       LogStasher.log('warn', 'WARNING')
     end
   end
